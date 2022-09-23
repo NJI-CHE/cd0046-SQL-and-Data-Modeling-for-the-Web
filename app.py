@@ -2,6 +2,7 @@
 # Imports
 #----------------------------------------------------------------------------#
 
+from email.policy import default
 import json
 import dateutil.parser
 import babel
@@ -23,6 +24,7 @@ db = SQLAlchemy(app)
 
 # TODO: connect to a local postgresql database
 
+
 #----------------------------------------------------------------------------#
 # Models.
 #----------------------------------------------------------------------------#
@@ -40,6 +42,15 @@ class Venue(db.Model):
     facebook_link = db.Column(db.String(120))
 
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
+    genres = db.Column(db.String(120))
+    website_link = db.Column(db.String(120))
+    seeking_description = db.Column(db.String(120))
+    seeking_talent = db.Column(db.Boolean, default = False)
+
+    db.create_all()
+
+
+
 
 class Artist(db.Model):
     __tablename__ = 'Artist'
@@ -54,8 +65,21 @@ class Artist(db.Model):
     facebook_link = db.Column(db.String(120))
 
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
+    website_link = db.Column(db.String(120))
+    seeking_description = db.Column(db.String(120))
+    seeking_venue = db.Column(db.Bolean, default= False)
 
 # TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
+
+class Show(db.Model):
+  __tablename__ = 'Show'
+
+  id = db.Column(db.String)
+  start_time = db.Column(db.Datetime, nullable=False, default=datetime.watnow)
+  
+
+
+
 
 #----------------------------------------------------------------------------#
 # Filters.
